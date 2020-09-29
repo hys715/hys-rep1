@@ -2,21 +2,14 @@
 
 void shellsort(int a[], int size)
 {
-    int dis = size / 2, i, j, k, temp;
-    while(dis > 0)
-    {
-        for(i = 0; i < dis; i++)
+    for (int dis = size >> 1; dis > 0; dis >>= 1)
+        for (int i = dis; i < size; ++i)
         {
-            for(j = i + dis; j < size; j += dis)
-            {
-                temp = a[j];
-                for(k = j - dis; k >= 0 && a[k] > temp; k -= dis)
-                    a[k + dis] = a[k];
-                a[k + dis] = temp;
-            }
+            int tmp = a[i], j = i;
+            for (; j >= dis && tmp < a[j - dis]; j -= dis)
+                a[j] = a[j - dis];
+            a[j] = tmp;
         }
-        dis /= 2;
-    }
 }
 
 int main()
